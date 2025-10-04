@@ -40,10 +40,9 @@ const createUser = asyncHandler(async (req, res) => {
 
   // Send password email
   try {
-    await sendAccountCreationEmail(email, fromEmail, password);
+    await sendAccountCreationEmail(email, password);
   } catch (error) {
-    // Optional: delete user if email fails
-    // await User.findByIdAndDelete(user._id);
+    await User.findByIdAndDelete(user._id);
     throw new apiError(500, "User created but failed to send email. User deleted.");
   }
 
