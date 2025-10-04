@@ -8,18 +8,6 @@ const textract = new AWS.Textract({
   region: process.env.AWS_REGION,
 });
 
-
-
-
-import AWS from "aws-sdk";
-
-const textract = new AWS.Textract({
-  region: process.env.AWS_REGION,
-});
-
-
-
-
 configDotenv();
 
 const PORT =process.env.PORT || 8001
