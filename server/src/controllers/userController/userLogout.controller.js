@@ -23,11 +23,11 @@ const logOutUser = asyncHandler(async (req, res) => {
       .clearCookie("accessToken", cookieOptions)
       .clearCookie("refreshToken", cookieOptions)
       .json(
-        new apiResponse(201, {}, "User logged out successfully")
+        new apiResponse(200, {}, "User logged out successfully")
       );
   } catch (error) {
     console.error("Error while logging out:", error);
-    throw new apiError(402, "Error while logging out");
+    throw new apiError(500, "Error while logging out");
   }
 });
 
