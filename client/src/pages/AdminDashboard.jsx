@@ -1,165 +1,207 @@
-import { Plus, Users, ShieldCheck, Settings, KeyRound } from 'lucide-react';
+import { Plus, Users, ShieldCheck, Settings, KeyRound, MoreVertical, GripVertical, Building2 } from 'lucide-react';
 
-// Mock Data
-const employees = [
-  { name: 'John Doe', email: 'john@example.com', role: 'Manager', manager: 'N/A' },
-  { name: 'Jane Smith', email: 'jane@example.com', role: 'Employee', manager: 'John Doe' },
-  { name: 'Peter Jones', email: 'peter@example.com', role: 'Employee', manager: 'John Doe' },
-];
+// --- Reusable Components (for better structure and styling) ---
 
-// A small, local component for the toggle switch UI
-const ToggleSwitch = ({ enabled }) => (
-  <div className={`w-11 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors duration-300 ${enabled ? 'bg-indigo-600' : 'bg-gray-300'}`}>
-    <div className={`bg-white w-4 h-4 rounded-full shadow-md transform duration-300 ease-in-out ${enabled ? 'translate-x-5' : ''}`}></div>
+const Card = ({ children }) => (
+  <div className="bg-white rounded-xl shadow-md overflow-hidden">{children}</div>
+);
+
+const CardHeader = ({ title, icon, action }) => (
+  <div className="p-5 border-b border-slate-100 flex justify-between items-center">
+    <div className="flex items-center gap-3">
+      {icon}
+      <h2 className="text-lg font-semibold text-slate-700">{title}</h2>
+    </div>
+    {action}
   </div>
 );
+
+const CardContent = ({ children }) => (
+  <div className="p-5 bg-slate-50/50">{children}</div>
+);
+
+const ToggleSwitch = ({ enabled }) => (
+  <div className={`w-10 h-5 flex items-center rounded-full p-1 cursor-pointer transition-colors ${enabled ? 'bg-blue-600' : 'bg-slate-300'}`}>
+    <div className={`bg-white w-3.5 h-3.5 rounded-full shadow-md transform transition-transform ${enabled ? 'translate-x-5' : ''}`} />
+  </div>
+);
+
+// --- Mock Data ---
+const employees = [
+  { name: 'John Doe', email: 'john.doe@example.com', role: 'Manager', manager: 'N/A', avatar: 'https://i.pravatar.cc/40?u=a042581f4e29026704d' },
+  { name: 'Jane Smith', email: 'jane.smith@example.com', role: 'Employee', manager: 'John Doe', avatar: 'https://i.pravatar.cc/40?u=a042581f4e29026705d' },
+  { name: 'Peter Jones', email: 'peter.jones@example.com', role: 'Employee', manager: 'John Doe', avatar: 'https://i.pravatar.cc/40?u=a042581f4e29026706d' },
+];
 
 
 const AdminDashboard = () => {
   return (
-    <div className="space-y-10">
-      <h1 className="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
+    <div className="space-y-8">
+      {/* --- Header --- */}
+      <div>
+        <h1 className="text-3xl font-bold text-slate-800">Admin Dashboard</h1>
+        <p className="mt-1 text-slate-500">Manage your company's expenses, employees, and settings.</p>
+      </div>
 
-      {/* Employee & Manager Management */}
-      <section>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold flex items-center gap-2"><Users size={24} /> Employees & Managers</h2>
-          <button className="bg-indigo-600 text-white px-4 py-2 rounded-md flex items-center gap-2 hover:bg-indigo-700">
-            <Plus size={16} /> Add Employee
-          </button>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow">
-          <table className="w-full text-left">
-            <thead>
-              <tr className="border-b">
-                <th className="p-2">Name</th>
-                <th className="p-2">Email</th>
-                <th className="p-2">Role</th>
-                <th className="p-2">Manager Assigned</th>
-              </tr>
-            </thead>
-            <tbody>
-              {employees.map((emp, index) => (
-                <tr key={index} className="border-b hover:bg-gray-50">
-                  <td className="p-2">{emp.name}</td>
-                  <td className="p-2">{emp.email}</td>
-                  <td className="p-2">
-                     <span className={`px-2 py-1 text-xs rounded-full ${emp.role === 'Manager' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'}`}>
-                      {emp.role}
-                    </span>
-                  </td>
-                  <td className="p-2">{emp.manager}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* --- Left Column (Main Content) --- */}
+        <div className="lg:col-span-2 space-y-8">
+          {/* Employee Management */}
+          <Card>
+            <CardHeader
+              title="Employees & Managers"
+              icon={<Users className="text-slate-500" />}
+              action={
+                <button className="bg-blue-600 text-white px-4 py-2 text-sm font-medium rounded-lg flex items-center gap-2 hover:bg-blue-700 transition-colors">
+                  <Plus size={16} /> Add Employee
+                </button>
+              }
+            />
+            <div className="p-2">
+              <table className="w-full">
+                <thead className="text-sm text-slate-500">
+                  <tr>
+                    <th className="p-3 font-medium text-left">Name</th>
+                    <th className="p-3 font-medium text-left">Role</th>
+                    <th className="p-3 font-medium text-left">Manager</th>
+                    <th className="p-3 font-medium text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {employees.map((emp) => (
+                    <tr key={emp.email} className="border-t border-slate-100 hover:bg-slate-50">
+                      <td className="p-3 flex items-center gap-3">
+                        <img src={emp.avatar} alt={emp.name} className="w-9 h-9 rounded-full" />
+                        <div>
+                          <p className="font-semibold text-slate-700">{emp.name}</p>
+                          <p className="text-sm text-slate-500">{emp.email}</p>
+                        </div>
+                      </td>
+                      <td className="p-3">
+                        <span className={`px-2.5 py-1 text-xs font-semibold rounded-full ${emp.role === 'Manager' ? 'bg-sky-100 text-sky-800' : 'bg-emerald-100 text-emerald-800'}`}>
+                          {emp.role}
+                        </span>
+                      </td>
+                      <td className="p-3 text-slate-600">{emp.manager}</td>
+                      <td className="p-3 text-center">
+                        <button className="text-slate-500 hover:text-slate-800 p-1 rounded-full hover:bg-slate-100">
+                          <MoreVertical size={20} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Card>
 
-      {/* Approval Rules Config (Hackathon Winning Edge) */}
-      <section>
-         <h2 className="text-xl font-semibold flex items-center gap-2 mb-4"><ShieldCheck size={24} /> Approval Rules Config</h2>
-         <div className="bg-white p-6 rounded-lg shadow">
-            <p className="mb-4 text-gray-600">Drag and drop to reorder the approval sequence.</p>
-            <div className="flex items-center space-x-4 text-center">
-                {/* Step 1 */}
-                <div className="flex-1 p-4 border border-dashed rounded-lg bg-gray-50">
-                    <p className="font-bold">Step 1: Manager</p>
-                    <p className="text-sm text-gray-500">Approves all expenses from their team.</p>
+          {/* Approval Rules */}
+          <Card>
+            <CardHeader
+              title="Approval Rules Workflow"
+              icon={<ShieldCheck className="text-slate-500" />}
+              action={
+                <button className="text-sm font-medium text-blue-600 hover:text-blue-800">
+                  + Add Step
+                </button>
+              }
+            />
+            <CardContent>
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center">
+                {/* Step Item */}
+                <div className="flex items-center gap-4 w-full">
+                   <div className="bg-white flex-1 p-4 border rounded-lg flex items-center justify-between shadow-sm">
+                      <div className="flex items-center gap-3 text-left">
+                        <GripVertical className="cursor-grab text-slate-400" />
+                        <div>
+                          <p className="font-bold text-slate-700">1. Manager Approval</p>
+                          <p className="text-sm text-slate-500">Team lead reviews expense.</p>
+                        </div>
+                      </div>
+                      <button className="text-sm font-medium text-slate-600 hover:text-slate-900">Configure</button>
+                   </div>
+                   <div className="hidden md:block text-slate-300 font-light text-2xl">→</div>
                 </div>
-                <span className="text-2xl text-gray-400">→</span>
-                {/* Step 2 */}
-                <div className="flex-1 p-4 border border-dashed rounded-lg bg-gray-50">
-                    <p className="font-bold">Step 2: Finance Dept.</p>
-                    <p className="text-sm text-gray-500">Approves if amount > $500.</p>
+                {/* Step Item */}
+                <div className="bg-white flex-1 w-full p-4 border rounded-lg flex items-center justify-between shadow-sm">
+                   <div className="flex items-center gap-3 text-left">
+                     <GripVertical className="cursor-grab text-slate-400" />
+                     <div>
+                       <p className="font-bold text-slate-700">2. Finance Review</p>
+                       <p className="text-sm text-slate-500">For expenses over $500.</p>
+                     </div>
+                   </div>
+                   <button className="text-sm font-medium text-slate-600 hover:text-slate-900">Configure</button>
                 </div>
-                <span className="text-2xl text-gray-400">→</span>
-                {/* Step 3 */}
-                <div className="flex-1 p-4 border-2 border-indigo-400 rounded-lg bg-indigo-50 shadow-md">
-                    <p className="font-bold text-indigo-800">Step 3: Director</p>
-                    <p className="text-sm text-indigo-600">Final approval for amounts > $2000.</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* --- Right Column (Settings & Permissions) --- */}
+        <div className="space-y-8">
+          {/* Company Settings */}
+          <Card>
+            <CardHeader title="Company Settings" icon={<Building2 className="text-slate-500" />} />
+            <CardContent>
+              <form className="space-y-4">
+                <div>
+                  <label htmlFor="companyName" className="block text-sm font-medium text-slate-600">Company Name</label>
+                  <input type="text" id="companyName" defaultValue="ExpenseWise Inc." className="mt-1 block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
                 </div>
-            </div>
-            <button className="mt-6 bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300">
-                + Add Approval Step
-            </button>
-         </div>
-      </section>
-      
-      {/* 🌟 NEW: Company Settings Section */}
-      <section>
-        <h2 className="text-xl font-semibold flex items-center gap-2 mb-4"><Settings size={24} /> Company Settings</h2>
-        <div className="bg-white p-6 rounded-lg shadow">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label htmlFor="companyName" className="block text-sm font-medium text-gray-700">Company Name</label>
-              <input type="text" id="companyName" defaultValue="ExpenseWise Inc." className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"/>
-            </div>
-            <div>
-              <label htmlFor="defaultCurrency" className="block text-sm font-medium text-gray-700">Default Currency</label>
-              <select id="defaultCurrency" className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                <option>USD - United States Dollar</option>
-                <option>EUR - Euro</option>
-                <option selected>INR - Indian Rupee</option>
-              </select>
-            </div>
-            <div className="md:col-span-2">
-              <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700">Currency Exchange API Key</label>
-              <input type="password" id="apiKey" defaultValue="••••••••••••••••" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"/>
-            </div>
-          </div>
-          <div className="mt-6 text-right">
-            <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
-              Save Settings
-            </button>
-          </div>
-        </div>
-      </section>
+                <div>
+                  <label htmlFor="defaultCurrency" className="block text-sm font-medium text-slate-600">Default Currency</label>
+                  <select id="defaultCurrency" className="mt-1 block w-full px-3 py-2 border border-slate-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <option>USD - United States Dollar</option>
+                    <option>EUR - Euro</option>
+                    <option selected>INR - Indian Rupee</option>
+                  </select>
+                </div>
+                <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                  Save Changes
+                </button>
+              </form>
+            </CardContent>
+          </Card>
 
-      {/* 🌟 NEW: Role Permissions Matrix Section */}
-      <section>
-        <h2 className="text-xl font-semibold flex items-center gap-2 mb-4"><KeyRound size={24} /> Role Permissions Matrix</h2>
-        <div className="bg-white p-4 rounded-lg shadow overflow-x-auto">
-          <table className="w-full text-left min-w-[600px]">
-            <thead>
-              <tr className="border-b">
-                <th className="p-2 font-semibold">Role</th>
-                <th className="p-2 font-semibold text-center">Create Users</th>
-                <th className="p-2 font-semibold text-center">Submit Expense</th>
-                <th className="p-2 font-semibold text-center">Approve Expense</th>
-                <th className="p-2 font-semibold text-center">Override Flow</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Admin Row */}
-              <tr className="border-b hover:bg-gray-50">
-                <td className="p-2 font-medium">Admin</td>
-                <td className="p-2 flex justify-center"><ToggleSwitch enabled={true} /></td>
-                <td className="p-2 flex justify-center"><ToggleSwitch enabled={true} /></td>
-                <td className="p-2 flex justify-center"><ToggleSwitch enabled={true} /></td>
-                <td className="p-2 flex justify-center"><ToggleSwitch enabled={true} /></td>
-              </tr>
-              {/* Manager Row */}
-              <tr className="border-b hover:bg-gray-50">
-                <td className="p-2 font-medium">Manager</td>
-                <td className="p-2 flex justify-center"><ToggleSwitch enabled={false} /></td>
-                <td className="p-2 flex justify-center"><ToggleSwitch enabled={true} /></td>
-                <td className="p-2 flex justify-center"><ToggleSwitch enabled={true} /></td>
-                <td className="p-2 flex justify-center"><ToggleSwitch enabled={false} /></td>
-              </tr>
-              {/* Employee Row */}
-              <tr className="hover:bg-gray-50">
-                <td className="p-2 font-medium">Employee</td>
-                <td className="p-2 flex justify-center"><ToggleSwitch enabled={false} /></td>
-                <td className="p-2 flex justify-center"><ToggleSwitch enabled={true} /></td>
-                <td className="p-2 flex justify-center"><ToggleSwitch enabled={false} /></td>
-                <td className="p-2 flex justify-center"><ToggleSwitch enabled={false} /></td>
-              </tr>
-            </tbody>
-          </table>
+          {/* Role Permissions */}
+          <Card>
+            <CardHeader title="Role Permissions" icon={<KeyRound className="text-slate-500" />} />
+            <div className="p-2">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-slate-500">
+                    <th className="p-2 font-medium text-left">Role</th>
+                    <th className="p-2 font-medium text-center">Submit</th>
+                    <th className="p-2 font-medium text-center">Approve</th>
+                    <th className="p-2 font-medium text-center">Manage Users</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-t border-slate-100">
+                    <td className="p-2 font-semibold text-slate-700">Admin</td>
+                    <td className="p-2 flex justify-center"><ToggleSwitch enabled={true} /></td>
+                    <td className="p-2 flex justify-center"><ToggleSwitch enabled={true} /></td>
+                    <td className="p-2 flex justify-center"><ToggleSwitch enabled={true} /></td>
+                  </tr>
+                   <tr className="border-t border-slate-100">
+                    <td className="p-2 font-semibold text-slate-700">Manager</td>
+                    <td className="p-2 flex justify-center"><ToggleSwitch enabled={true} /></td>
+                    <td className="p-2 flex justify-center"><ToggleSwitch enabled={true} /></td>
+                    <td className="p-2 flex justify-center"><ToggleSwitch enabled={false} /></td>
+                  </tr>
+                   <tr className="border-t border-slate-100">
+                    <td className="p-2 font-semibold text-slate-700">Employee</td>
+                    <td className="p-2 flex justify-center"><ToggleSwitch enabled={true} /></td>
+                    <td className="p-2 flex justify-center"><ToggleSwitch enabled={false} /></td>
+                    <td className="p-2 flex justify-center"><ToggleSwitch enabled={false} /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </Card>
         </div>
-      </section>
-
+      </div>
     </div>
   );
 };
