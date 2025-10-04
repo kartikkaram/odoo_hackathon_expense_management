@@ -31,7 +31,7 @@ const userLogin = asyncHandler(async (req, res) => {
 
   const { accessToken, refreshToken } = await GenerateAccessAndRefreshTokens(user._id);
 
-  const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
+  const loggedInUser = await User.findById(user._id).select("-password -refreshToken").populate("company");
   if (!loggedInUser) {
     throw new apiError(400, "You are not logged in");
   }
