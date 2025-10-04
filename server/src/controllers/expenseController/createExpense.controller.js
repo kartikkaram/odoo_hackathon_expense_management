@@ -1,22 +1,20 @@
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { User } from "../../models/user.model.js";
+import { Expense } from "../../models/expense.model.js";
 import { apiResponse } from "../../utils/apiResponse.js";
+import { apiError } from "../../utils/apiError.js";
 
 const createExpense = asyncHandler(async (req, res) => {
   const userId = req.user.id; // from JWT
   const { amount, currency, category, description, date } = req.body;
 
   if (!userId || !amount || !currency || !category || !date) {
-    return res
-      .status(400)
-      .json(new apiResponse(400, { message: "All Fields are required" }));
+    throw new apiError(400, "All fields are required");
   }
 
   const user = await User.findById(userId);
   if (!user) {
-    return res
-      .status(404)
-      .json(new apiResponse(404, { message: "User not found" }));
+    throw new apiError(404, "User not found");
   }
 
   const newExpense = await Expense.create({
@@ -29,15 +27,13 @@ const createExpense = asyncHandler(async (req, res) => {
     date,
   });
 
-  return res
-    .status(201)
-    .json(
-      new apiResponse(
-        201,
-        { expense: newExpense },
-        "Expense created successfully"
-      )
-    );
+  return res.status(201).json(
+    new apiResponse(
+      201,
+      { expense: newExpense },
+      "Expense created successfully"
+    )
+  );
 });
 
 export { createExpense };

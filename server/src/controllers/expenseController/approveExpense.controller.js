@@ -1,6 +1,6 @@
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { Expense } from "../../models/expense.model.js";
-import { apiResponse } from "../../utils/apiResponse.js";
+import { apiError } from "../../utils/apiError.js";
 
 const approveExpense = asyncHandler(async (req, res) => {
   const expenseId = req.params.id;
@@ -12,41 +12,23 @@ const approveExpense = asyncHandler(async (req, res) => {
     .populate("approvalFlow")
     .populate("employee", "username email");
 
-  if (!expense)
-    return res
-      .status(404)
-      .json(new apiResponse(404, { message: "Expense not found" }));
+  if (!expense) throw new apiError(404, "Expense not found");
 
   if (expense.status !== "Pending")
-    return res
-      .status(400)
-      .json(new apiResponse(400, { message: "Expense already processed" }));
+    throw new apiError(400, "Expense already processed");
 
   const flow = expense.approvalFlow;
-  if (!flow)
-    return res
-      .status(400)
-      .json(new apiResponse(400, { message: "No approval flow assigned" }));
+  if (!flow) throw new apiError(400, "No approval flow assigned");
 
-  //  Get current step info
+  // Get current step info
   const currentStepInfo = flow.steps.find(
     (s) => s.stepNumber === expense.currentStep
   );
-  if (!currentStepInfo)
-    return res
-      .status(400)
-      .json(new apiResponse(400, { message: "Invalid current step in flow" }));
+  if (!currentStepInfo) throw new apiError(400, "Invalid current step in flow");
 
-  //  Check permission (does this approver match the current step role?)
-  if (
-    approverRole !== currentStepInfo.approverRole &&
-    approverRole !== "Admin"
-  ) {
-    return res.status(403).json(
-      new apiResponse(403, {
-        message: "You are not authorized to approve this step",
-      })
-    );
+  // Check permission (does this approver match the current step role?)
+  if (approverRole !== currentStepInfo.approverRole && approverRole !== "Admin") {
+    throw new apiError(403, "You are not authorized to approve this step");
   }
 
   expense.status = "Approved";
@@ -69,19 +51,23 @@ const approveExpense = asyncHandler(async (req, res) => {
     expense.status = "Pending"; // Still pending overall
     await expense.save();
 
-    return res.status(200).json(
-      new apiResponse(200, {
+    return res.status(200).json({
+      status: "success",
+      data: {
         message: `Approved. Moved to step ${expense.currentStep}`,
         expense,
-      })
-    );
+      },
+    });
   } else {
     expense.status = "Approved";
     await expense.save();
   }
-  return res
-    .status(200)
-    .json(new apiResponse(200, { expense }, "Expense fully approved"));
+
+  return res.status(200).json({
+    status: "success",
+    data: { expense },
+    message: "Expense fully approved",
+  });
 });
 
 export { approveExpense };
