@@ -6,6 +6,8 @@ import dotenv from "dotenv"
 import userRouter from './routes/user.routes.js';
 import { healthCheck } from './controllers/healthCheckController/healthCheck.controller.js';
 import expenseRouter from './routes/expense.routes.js';
+import ocrRouter from './routes/ocrRoutes.js';
+
 dotenv.config()
 
 
@@ -27,8 +29,7 @@ app.use(cookieParser())
 app.use("/api/v1/healthcheck",healthCheck)
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/expense", expenseRouter);
-
-
+app.use("/api/v1/ocr", ocrRouter);
 
 app.use(Error_Handler)
 export default app
