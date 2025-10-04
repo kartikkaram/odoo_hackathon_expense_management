@@ -34,6 +34,7 @@ const Approval = mongoose.model("Approval", ApprovalSchema);
 const ApprovalFlowSchema = new Schema(
   {
     company: { type: ObjectId, ref: "Company", required: true },
+
     steps: [
       {
         stepNumber: { type: Number, required: true },

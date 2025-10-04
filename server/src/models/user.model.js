@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: String, enum: ['Admin', 'Manager', 'Employee'], required: true },
+  role: { type: String, enum: ['Admin', 'Manager', 'Employee','finance', 'cfo'], required: true },
   manager: { type: ObjectId, ref: 'User', default: null }, // who approves this user
   isManagerApprover: { type: Boolean, default: false },
   imageUrl:{type:String},
