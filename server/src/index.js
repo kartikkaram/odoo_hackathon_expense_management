@@ -1,9 +1,10 @@
+import { configDotenv } from "dotenv";
 import app from "./app.js"
 import connectDB from "./db/dbConnection.js"
 
+configDotenv();
 
-
-const PORT =process.env.PORT 
+const PORT =process.env.PORT || 8001
 
 if (!PORT || isNaN(Number(PORT))) {
   throw new Error("PORT environment variable is not set or is invalid. This is required on Render.");
