@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { LogIn, Mail, Lock, AlertCircle, Loader2 } from 'lucide-react';
+import { LogIn, User, Lock, AlertCircle, Loader2, Mail } from 'lucide-react';
 
 const LoginPage = () => {
     const [formData, setFormData] = useState({
+        username: '',
         email: '',
         password: '',
     });
@@ -27,7 +28,14 @@ const LoginPage = () => {
 
         try {
             const apiUrl = `${import.meta.env.VITE_BASE_URL}/users/login`;
-            const response = await axios.post(apiUrl, formData);
+
+            const payload = {
+                username: formData.username,
+                email: formData.email,
+                password: formData.password
+            };
+
+            const response = await axios.post(apiUrl, payload);
 
             const { user, accessToken, refreshToken } = response.data.data;
 
@@ -60,6 +68,22 @@ const LoginPage = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Username Input */}
+                    <div className="relative">
+                        <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <input
+                            id="username"
+                            name="username"
+                            type="text"
+                            autoComplete="username"
+                            required
+                            value={formData.username}
+                            onChange={handleChange}
+                            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                            placeholder="Username"
+                        />
+                    </div>
+
                     {/* Email Input */}
                     <div className="relative">
                         <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -129,3 +153,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
