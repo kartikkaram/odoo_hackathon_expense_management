@@ -2,8 +2,8 @@ import User from "../../models/user.model.js";
 import { apiError } from "../../utils/apiError.js";
 import { apiResponse } from "../../utils/apiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
-import { generateRandomPassword } from "../../utils/generatePassword.js";
-import { sendAccountCreationEmail } from "../../utils/sendEmail.js"; 
+import { generateRandomPassword } from "../../utils/generatePassword.js"; 
+import { sendAccountCreationEmail } from "../../utils/mailer.js";
 
 
 

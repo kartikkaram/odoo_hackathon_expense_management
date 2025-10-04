@@ -1,5 +1,10 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^1.12.2"
+=======
+    "@google/generative-ai": "^0.24.1",
+    "aws-sdk": "^2.1692.0"
+>>>>>>> c9f9207fcf0a853ea0ffb6c477c01394276ee0dd
   }
 }

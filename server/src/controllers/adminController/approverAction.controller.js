@@ -1,7 +1,7 @@
 // controllers/approval.controller.js (approverAction)
 import { asyncHandler } from "../../utils/asyncHandler.js";
-import { Approval } from "../../models/approval.model.js";
-import Expense from "../../models/expense.model.js";
+import  Approval  from "../../models/approval.model.js";
+import {Expense} from "../../models/expense.model.js";
 import { apiResponse } from "../../utils/apiResponse.js";
 import { apiError } from "../../utils/apiError.js";
 

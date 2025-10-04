@@ -1,11 +1,12 @@
 // controllers/approval.controller.js (adminSubmit)
 import { asyncHandler } from "../../utils/asyncHandler.js";
-import { User } from "../../models/user.model.js";
-import Expense from "../../models/expense.model.js";
-import { ApprovalFlow, Approval } from "../../models/approval.model.js";
+import  User  from "../../models/user.model.js";
+import {Expense} from "../../models/expense.model.js";
+
 import { apiResponse } from "../../utils/apiResponse.js";
 import { apiError } from "../../utils/apiError.js";
 import mongoose from "mongoose";
+import { ApprovalFlow } from "../../models/approval.model.js";
 
 const adminSubmit = asyncHandler(async (req, res) => {
   if (req.user.role !== "Admin")
