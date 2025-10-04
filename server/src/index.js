@@ -1,6 +1,15 @@
 import app from "./app.js"
 import connectDB from "./db/dbConnection.js"
 
+import AWS from "aws-sdk";
+
+const textract = new AWS.Textract({
+  region: process.env.AWS_REGION,
+});
+
+
+
+
 
 
 const PORT =process.env.PORT 
@@ -12,6 +21,10 @@ if (!PORT || isNaN(Number(PORT))) {
 
 const startServer = async () => {
   try {
+    textract.getDocumentAnalysis({ Document: { Bytes: Buffer.from("") } }, (err, data) => {
+      if (err) console.log("AWS Credentials / SDK issue:", err);
+      else console.log("AWS works!");
+    });
     await connectDB();
     console.log("Database connected");
   

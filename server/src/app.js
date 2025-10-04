@@ -8,6 +8,7 @@ import { healthCheck } from './controllers/healthCheckController/healthCheck.con
 import quizRouter from './routes/quiz.routes.js';
 import submissionRouter from './routes/submission.routes.js';
 import analyticsRouter from './routes/analytics.router.js';
+import ocrRouter from './routes/ocrRoutes.js';
 
 dotenv.config()
 
@@ -32,6 +33,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/quiz", quizRouter);
 app.use("/api/v1/submission", submissionRouter);
 app.use("/api/v1/analytics", analyticsRouter);
+app.use("/api/v1/ocr",ocrRouter);
 
 
 app.use(Error_Handler)
