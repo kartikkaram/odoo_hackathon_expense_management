@@ -10,7 +10,7 @@ try {
       const Token = req.header("Authorization")?.replace("Bearer ", "") || req.cookies?.accessToken;
     
       if (!Token) {
-        throw new apiError(400, "Token is required. Please provide it in cookies, body, or Authorization header.");
+        throw new apiError(401, "Token is required. Please provide it in cookies, body, or Authorization header.");
       }
     
       let DecodedToken = null;
