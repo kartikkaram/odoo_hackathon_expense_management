@@ -34,4 +34,5 @@ const ExpenseSchema = new mongoose.Schema({
 
   receipt: { type: ObjectId, ref: 'Receipt' },
 },{timestamps:true});
-export const Expense=mongoose.model('Expense', ExpenseSchema)
+const Expense =  mongoose.model('Expense', ExpenseSchema)
+export { Expense };
