@@ -30,16 +30,7 @@ const ApprovalFlowSchema = new Schema({
   enforceSequence: { type: Boolean, default: true }, // whether to send sequentially
 }, { timestamps: true });
 
-/**
- * Approval: instance attached to an expense. Tracks per-user status and which step is active.
- *
- * mandatoryApprovers is an array of objects:
- *  { user, stepIndex, status, comment, decidedAt }
- * stepIndex is zero-based index pointing to ApprovalFlow.steps index.
- *
- * currentStepIndex points to the active step (0-based). If enforceSequence=false,
- * approvers across all steps may act anytime.
- */
+
 const ApprovalSchema = new Schema({
   expense: { type: ObjectId, ref: "Expense", required: true },
   approvalFlow: { type: ObjectId, ref: "ApprovalFlow" }, // which flow used
