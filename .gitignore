@@ -1,0 +1,36 @@
+# Node.js dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs/
+*.log
+
+# Environment Variables
+.env
+client/.env
+server/.env
+
+# Build Files
+dist/
+build/
+client/build/
+server/build/
+
+# IDE and Editor Settings
+.vscode/
+.idea/
+.DS_Store
+
+# Coverage Reports
+coverage/
+
+# Database and Cache Files
+*.sqlite
+dump.rdb
+
+# OS-Specific Files
+Thumbs.db
