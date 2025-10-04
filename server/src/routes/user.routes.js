@@ -7,15 +7,13 @@ import { updateAccountDetails } from '../controllers/userController/updateDetail
 import { logOutUser } from '../controllers/userController/userLogout.controller.js';
 import { updatePassword } from '../controllers/userController/updatePassword.controller.js';
 import { VerifyJwt } from '../middlewares/Auth.middlewares.js';
-import { upload } from '../middlewares/multer.middlewares.js';
-import { mockLogin } from '../controllers/userController/mockLogin.controller.js';
+
 
 const userRouter = express.Router();
 
 // Public routes
-userRouter.post("/register",upload.single("image"), userRegistration);
+userRouter.post("/register", userRegistration);
 userRouter.post("/login", userLogin);
-userRouter.post("/mock-login", mockLogin);
 userRouter.post("/refresh-token", refreshAccessToken);
 
 // Protected routes

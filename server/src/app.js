@@ -33,7 +33,6 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/quiz", quizRouter);
 app.use("/api/v1/submission", submissionRouter);
 app.use("/api/v1/analytics", analyticsRouter);
-app.use("/api/v1/ocr",ocrRouter);
 
 
 app.use(Error_Handler)

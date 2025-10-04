@@ -1,3 +1,4 @@
+import { configDotenv } from "dotenv";
 import app from "./app.js"
 import connectDB from "./db/dbConnection.js"
 
@@ -10,9 +11,18 @@ const textract = new AWS.Textract({
 
 
 
+import AWS from "aws-sdk";
+
+const textract = new AWS.Textract({
+  region: process.env.AWS_REGION,
+});
 
 
-const PORT =process.env.PORT 
+
+
+configDotenv();
+
+const PORT =process.env.PORT || 8001
 
 if (!PORT || isNaN(Number(PORT))) {
   throw new Error("PORT environment variable is not set or is invalid. This is required on Render.");
