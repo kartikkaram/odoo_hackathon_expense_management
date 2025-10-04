@@ -1,5 +1,6 @@
 import { Users, ShieldCheck, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom'; // Make sure to install react-router-dom
+import { PageHeader } from '../../components/layout/PageHeader';
 
 const StatCard = ({ title, value, icon, linkTo }) => (
   <Link to={linkTo} className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all">

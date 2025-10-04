@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 // Layout and Page Imports
-import DashboardLayout from './components/layout/DashboardLayout'; // Assuming you have this
+import DashboardLayout from './components/layout/DashboardLayout';
 import LoginPage from './pages/LoginPage';
 // Admin Pages
 import AdminDashboard from './pages/admin/AdminDashboard';
 import EmployeeListPage from './pages/admin/EmployeeListPage';
 import ApprovalRulesPage from './pages/admin/ApprovalRulesPage';
-// Other role pages...
+import ApprovalWorkflowPage from './pages/admin/ApprovalWorkflowPage';
 import MyExpensesPage from './pages/employee/MyExpensesPage';
 import ApprovalsPage from './pages/manager/ApprovalsPage';
 
@@ -20,8 +20,9 @@ const App = () => {
         {/* Admin Routes */}
         <Route path="/admin" element={<DashboardLayout role="admin" />}>
           <Route index element={<AdminDashboard />} />
-          <Route path="employees" element={<EmployeeListPage />} /> {/* New */}
-          <Route path="rules" element={<ApprovalRulesPage />} />   {/* New */}
+          <Route path="employees" element={<EmployeeListPage />} />
+          <Route path="rules" element={<ApprovalRulesPage />} />
+          <Route path="workflow" element={<ApprovalWorkflowPage />} />
         </Route>
 
         {/* Employee Routes */}
