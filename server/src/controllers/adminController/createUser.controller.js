@@ -3,12 +3,14 @@ import { apiError } from "../../utils/apiError.js";
 import { apiResponse } from "../../utils/apiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { generateRandomPassword } from "../../utils/generatePassword.js";
-import { sendAccountCreationEmail } from "../../utils/sendEmail.js"; 
-
+import { sendAccountCreationEmail } from "../../utils/mailer.js";
 
 
 const createUser = asyncHandler(async (req, res) => {
   const { username, email, role = "Employee", manager = null, fromEmail } = req.body;
+  const adminId = req.user._id;
+
+  const admin = await User.findById(adminId);
 
   if (![username, email].every(Boolean)) {
     throw new apiError(400, "Username and email are required");
@@ -33,6 +35,7 @@ const createUser = asyncHandler(async (req, res) => {
     password, // hashed automatically by schema
     role,
     manager,
+    company: admin.company,
   });
 
   // Send password email

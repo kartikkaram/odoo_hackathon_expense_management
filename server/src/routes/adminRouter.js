@@ -1,12 +1,12 @@
 import express from "express";
-import { VerifyJwt } from "../middlewares/Auth.middlewares";
-import { isAdmin } from "../middlewares/isAdmin.middleware";
-import { createUser } from "../controllers/adminController/createUser.controller";
-import { getCompanyUsers } from "../controllers/adminController/getAllUsers.controllers";
-import { adminSubmit } from "../controllers/adminController/adminSubmit.controller";
-import { approverAction } from "../controllers/adminController/approverAction.controller";
-import { getCompanyManagers } from "../controllers/adminController/getAllManagers";
-import { updateUserManager } from "../controllers/adminController/updateManager.controller";
+import { VerifyJwt } from "../middlewares/Auth.middlewares.js";
+import { isAdmin } from "../middlewares/isAdmin.middleware.js";
+import { createUser } from "../controllers/adminController/createUser.controller.js";
+import { getCompanyUsers } from "../controllers/adminController/getAllUsers.controllers.js";
+import { adminSubmit } from "../controllers/adminController/adminSubmit.controller.js";
+import { approverAction } from "../controllers/adminController/approverAction.controller.js";
+import { getCompanyManagers } from "../controllers/adminController/getAllManagers.js";
+import { updateUserManager } from "../controllers/adminController/updateManager.controller.js";
 
 
 const adminRouter = express.Router();

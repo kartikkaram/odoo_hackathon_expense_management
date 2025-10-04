@@ -27,7 +27,10 @@ const approveExpense = asyncHandler(async (req, res) => {
   if (!currentStepInfo) throw new apiError(400, "Invalid current step in flow");
 
   // Check permission (does this approver match the current step role?)
-  if (approverRole !== currentStepInfo.approverRole && approverRole !== "Admin") {
+  if (
+    approverRole !== currentStepInfo.approverRole &&
+    approverRole !== "Admin"
+  ) {
     throw new apiError(403, "You are not authorized to approve this step");
   }
 
