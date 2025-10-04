@@ -23,9 +23,9 @@
 | Backend        | Node.js, Express.js               |
 | Database       | MongoDB, Mongoose                 |
 | Authentication | JWT (Access & Refresh Tokens)     |
-| Email          | Zoho Mail                          |
+| Email          | Zoho Mail                         |
 | OCR            | AWS Textract                      |
-| API            | RESTful API                       |
+| API            | RESTcountries                     |
 
 ---
 
@@ -144,12 +144,8 @@ This project was developed as an educational demonstration and is not intended f
 
 ## 🙏 Acknowledgements
 
-* Built as part of an internal project / training exercise
+* Built as part of odoo hackathon
 * Designed using best practices for **React**, and **Node.js**
 * Gemini used for workflow suggestions, code improvements, and documentation
 
 ---
-
-I can also **add a visual workflow diagram** showing **Admin → ApprovalFlow → Expense → Approval → Employee Notification**, which will make the README more visually appealing and easy to understand.
-
-Do you want me to add that diagram as well?
