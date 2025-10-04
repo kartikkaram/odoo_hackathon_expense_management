@@ -34,38 +34,4 @@ const ApprovalFlowSchema = new Schema(
 );
 
 
-const ApprovalEntrySchema = new Schema({
-  user: { type: Types.ObjectId, ref: "User", required: true },
-  stepIndex: { type: Number, required: true },
-  status: {
-    type: String,
-    enum: ["Pending", "Approved", "Rejected"],
-    default: "Pending",
-  },
-  comment: { type: String, default: null },
-  decidedAt: { type: Date, default: null },
-});
-
-const ApprovalSchema = new Schema(
-  {
-    expense: { type: Types.ObjectId, ref: "Expense", required: true },
-    approvalFlow: { type: Types.ObjectId, ref: "ApprovalFlow", required: true },
-    primaryManager: { type: Types.ObjectId, ref: "User", required: true },
-    mandatoryApprovers: [ApprovalEntrySchema],
-    enforceSequence: { type: Boolean, default: true },
-    currentStepIndex: { type: Number, default: 0 },
-    overallStatus: {
-      type: String,
-      enum: ["Pending", "Approved", "Rejected"],
-      default: "Pending",
-    },
-  },
-  { timestamps: true }
-);
-
-const Approval = mongoose.model("Approval", ApprovalSchema);
-
-export default Approval;
-
-
 export const ApprovalFlow = mongoose.model("ApprovalFlow", ApprovalFlowSchema);
