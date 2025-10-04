@@ -28,8 +28,9 @@ const EmployeeListPage = () => {
       });
       const data = await res.json();
       if (res.ok) {
-        setEmployees(data.users || []);
-        setManagers(data.users.filter((u) => u.role === "Manager"));
+        console.log("Fetched users:", data);
+        setEmployees(data.data || []);
+        setManagers(data.data.filter((u) => u.role === "Manager"));
       } else {
         console.error("Error fetching users:", data.message);
       }
