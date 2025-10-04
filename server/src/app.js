@@ -5,6 +5,7 @@ import { Error_Handler } from './middlewares/Errors.middlewares.js';
 import dotenv from "dotenv"
 import userRouter from './routes/user.routes.js';
 import { healthCheck } from './controllers/healthCheckController/healthCheck.controller.js';
+import expenseRouter from './routes/expense.routes.js';
 dotenv.config()
 
 
@@ -25,6 +26,7 @@ app.use(cookieParser())
 // routes
 app.use("/api/v1/healthcheck",healthCheck)
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/expense", expenseRouter);
 
 
 

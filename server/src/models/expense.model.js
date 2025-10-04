@@ -1,11 +1,15 @@
-const ExpenseSchema = new Schema({
+import mongoose from 'mongoose';
+const { Types } = mongoose;
+const ObjectId = Types.ObjectId;
+
+const ExpenseSchema = new mongoose.Schema({
   company: { type: ObjectId, ref: 'Company', required: true },
   employee: { type: ObjectId, ref: 'User', required: true },
 
   amountOriginal: { type: Number, required: true },
   currencyOriginal: { type: String, required: true }, // e.g. "USD"
-  convertedAmount: { type: Number, required: true }, // converted into company's currency
-  exchangeRate: { type: Number, required: true }, // rate used for conversion
+  convertedAmount: { type: Number }, // converted into company's currency
+  exchangeRate: { type: Number}, // rate used for conversion
   description: { type: String },
   category: { type: String, required: true },
   date: { type: Date, required: true },
@@ -30,3 +34,4 @@ const ExpenseSchema = new Schema({
 
   receipt: { type: ObjectId, ref: 'Receipt' },
 },{timestamps:true});
+export const Expense=mongoose.model('Expense', ExpenseSchema)

@@ -1,5 +1,5 @@
 import { asyncHandler } from "../../utils/asyncHandler.js";
-import { User } from "../../models/user.model.js";
+import User  from "../../models/user.model.js";
 import { Expense } from "../../models/expense.model.js";
 import { apiResponse } from "../../utils/apiResponse.js";
 import { apiError } from "../../utils/apiError.js";
