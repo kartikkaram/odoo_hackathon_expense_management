@@ -4,8 +4,6 @@ const ExpenseSchema = new Schema({
 
   amountOriginal: { type: Number, required: true },
   currencyOriginal: { type: String, required: true }, // e.g. "USD"
-  convertedAmount: { type: Number, required: true }, // converted into company's currency
-  exchangeRate: { type: Number, required: true }, // rate used for conversion
   description: { type: String },
   category: { type: String, required: true },
   date: { type: Date, required: true },
