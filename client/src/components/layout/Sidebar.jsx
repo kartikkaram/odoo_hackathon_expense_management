@@ -5,8 +5,8 @@ import { LayoutDashboard, Users, ShieldCheck, Settings, FileText, BarChart3, Han
 const adminNav = [
   { name: 'Dashboard', icon: LayoutDashboard, path: '/admin' },
   { name: 'Employees', icon: Users, path: '/admin/employees' },
-  { name: 'Approval Rules', icon: ShieldCheck, path: '/admin/rules' },
-//   { name: 'Workflow Editor', icon: SlidersHorizontal, path: '/admin/workflow' },
+//   { name: 'Approval Rules', icon: ShieldCheck, path: '/admin/rules' },
+  { name: 'Workflow Editor', icon: SlidersHorizontal, path: '/admin/workflow' },
   { name: 'Settings', icon: Settings, path: '/admin/settings' },
 ];
 
