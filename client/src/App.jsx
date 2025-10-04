@@ -9,6 +9,7 @@ import ApprovalRulesPage from './pages/admin/ApprovalRulesPage';
 import ApprovalWorkflowPage from './pages/admin/ApprovalWorkflowPage';
 import MyExpensesPage from './pages/employee/MyExpensesPage';
 import ApprovalsPage from './pages/manager/ApprovalsPage';
+import SignupPage from './pages/SignupPage';
 
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         
         {/* Admin Routes */}
         <Route path="/admin" element={<DashboardLayout role="admin" />}>
