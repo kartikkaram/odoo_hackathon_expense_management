@@ -60,7 +60,7 @@ const refineWithGemini = async (text) => {
   try {
     // Select the Gemini model
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash-latest",
+      model: "gemini-2.5-flash",
     });
 
     // Create a detailed prompt for the model to ensure structured JSON output
@@ -74,6 +74,11 @@ const refineWithGemini = async (text) => {
       - "totalAmount": number
       - "items": an array of objects, where each object has "description" (string) and "price" (number).
       - "currency": string (e.g., "USD", "INR")
+
+      look for the value in the text it may have different name like total, amount paid, total paid etc.
+      find the date in the text it may have different name like date of purchase, transaction date etc.
+      If any field is not found, set it to null.
+      Ensure the JSON is well-formed.
 
       If a value is not found, set it to null. Do not invent data.
 
@@ -90,9 +95,11 @@ const refineWithGemini = async (text) => {
 
     const result = await model.generateContent(prompt, generationConfig);
     const response = result.response;
-    const responseText = response.text();
+    let responseText = response.text();
 
     // The response text is a JSON string, so we parse it
+        // ⚡ Strip code blocks if present
+    responseText = responseText.replace(/```json|```/g, "").trim();
     return JSON.parse(responseText);
 
   } catch (err) {
