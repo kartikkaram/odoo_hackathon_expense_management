@@ -3,38 +3,44 @@ import { apiError } from "./apiError.js";
 
 
 
-export const sendQuizSubmissionEmail = async (email, data) => {
+export const sendAccountCreationEmail = async (to, from, password) => {
   try {
     const transport = nodemailer.createTransport({
       host: "sandbox.smtp.mailtrap.io",
       port: 2525,
       auth: {
         user: process.env.MAIL_TRAP_USER,
-        pass: process.env.MAIL_TRAP_PASSWORD
-      }
+        pass: process.env.MAIL_TRAP_PASSWORD,
+      },
     });
 
     const html = `
-      <p>Hi ${data.username || "User"},</p>
-      <p>You have successfully submitted the quiz: <strong>${data.subject}</strong>.</p>
-      <ul>
-        <li>Score: ${data.score} / ${data.total}</li>
-        <li>Percentage: ${data.percentage.toFixed(2)}%</li>
-      </ul>
-      <p><strong>AI Suggestions / Tips:</strong></p>
-      <p>${data.aiSuggestion || "No suggestions available."}</p>
-      <p>Keep learning and improving!</p>
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        <h2 style="color: #4CAF50;">Welcome to Our Platform!</h2>
+        <p>Hello,</p>
+        <p>An account has been created for you by your Admin. Here are your login details:</p>
+        <table style="border-collapse: collapse; margin: 20px 0;">
+          <tr>
+            <td style="padding: 8px; font-weight: bold;">Email:</td>
+            <td style="padding: 8px;">${to}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; font-weight: bold;">Password:</td>
+            <td style="padding: 8px;">${password}</td>
+          </tr>
+        </table>
+        <p style="color: #555;">Please login and change your password immediately.</p>
+        <p>Best regards,<br/>The Team</p>
+      </div>
     `;
 
-    const mail = await transport.sendMail({
-      from: `"Quiz Platform" <no-reply@quizplatform.com>`,
-      to: email,
-      subject: `Your Quiz Submission: ${data.subject}`,
-      html
+    await transport.sendMail({
+      from, // now dynamic
+      to,
+      subject: "Your Account Has Been Created",
+      html,
     });
-
-    return mail;
   } catch (error) {
-    throw new apiError(500, `Error sending quiz email: ${error.message}`);
+    throw new apiError(500, `Error sending account creation email: ${error.message}`);
   }
 };

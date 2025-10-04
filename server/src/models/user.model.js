@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
+const { Types } = mongoose;
+const ObjectId = Types.ObjectId;
+
 const userSchema = new mongoose.Schema({
   company: { type: ObjectId, ref: 'Company', required: true },
   username: { type: String, required: true },
@@ -9,7 +12,7 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ['Admin', 'Manager', 'Employee'], required: true },
   manager: { type: ObjectId, ref: 'User', default: null }, // who approves this user
   isManagerApprover: { type: Boolean, default: false },
-  imageurl:{type:String},
+  imageUrl:{type:String},
   accessToken: { type: String },
   refreshToken: { type: String },
 }, { timestamps: true });
