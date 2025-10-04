@@ -24,7 +24,7 @@ const App = () => {
           <Route index element={<AdminDashboard />} />
           <Route path="employees" element={<EmployeeListPage />} />
           <Route path="rules" element={<ApprovalRulesPage />} />
-          <Route path="workflow" element={<ApprovalWorkflowPage />} />
+          <Route path="workflow/:id" element={<ApprovalWorkflowPage />} />
         </Route>
 
         {/* Employee Routes */}
